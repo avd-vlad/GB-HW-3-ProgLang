@@ -4,7 +4,7 @@
 12821 -> да
 23432 -> да
 ----------------------------------------------------------------------------------------------------------------------*/
-
+/*
 int FirstNumPart(int x) //function to split number to two parts and return the first
 {
     int i=0;                        //index
@@ -26,10 +26,6 @@ int FirstNumPart(int x) //function to split number to two parts and return the f
 int SecondNumPart(int x)
 {
     int i=0;                        //index
-
-
-
-
     int res=0;                      //result
     int[] xDgt=new int[100];        //array to keep digits
     
@@ -48,13 +44,35 @@ int SecondNumPart(int x)
             res=res+xDgt[j]*Convert.ToInt32(Math.Pow(10,i/2-j)); //packing resut for odd digits num
     return res;
 }
+*/
 
-bool CheckPalindrom(int x)          //to split number into two parts and compare them
+long ReverseNum(long x)
 {
+    int cntDgt=0;                        //index
+    long res=0;                      //result
+    long xX=x;
+
+    while(xX>0)                      //splitting x to digits
+    {
+        xX/=10;
+        cntDgt++;
+    }
+    for(int j=cntDgt;j>0;j--)
+    {
+        res=res+x%10*Convert.ToInt64(Math.Pow(10,j-1)); //reversing number
+        x/=10;
+    }
+    return res;
+}
+
+bool CheckPalindrom(long x)          //to split number into two parts and compare them
+{
+ /*
     int a,b;
     a=FirstNumPart(x);
     b=SecondNumPart(x);
-    return a==b;
+*/
+    return x==ReverseNum(x);
 }
 
 
@@ -64,10 +82,10 @@ while(true)  //main
     string input = Console.ReadLine();
     if(input.ToLower()=="q")
         return;
-    int x = Convert.ToInt32(input);
+    long x = Convert.ToInt64(input);
     bool isPalindrom = CheckPalindrom(x);
     if(isPalindrom)
-        Console.WriteLine($"{FirstNumPart(x)} == {SecondNumPart(x)} => {isPalindrom}");
+        Console.WriteLine($"{x} == {ReverseNum(x)} => {isPalindrom}");
     else
-        Console.WriteLine($"{FirstNumPart(x)} != {SecondNumPart(x)} => {isPalindrom}");
+        Console.WriteLine($"{x} != {ReverseNum(x)} => {isPalindrom}");
 }
