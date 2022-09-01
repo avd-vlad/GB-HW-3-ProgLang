@@ -75,6 +75,19 @@ bool CheckPalindrom(long x)          //to split number into two parts and compar
     return x==ReverseNum(x);
 }
 
+bool CheckPalindrom1(long x, ref long newX)          //to split number into two parts and compare them
+{
+    long oldX=x;
+    
+    newX=0;
+    while(x>0)                      
+    {
+        newX*=10;
+        newX=newX+x%10;                    //reversing x to newX
+        x/=10;
+    }
+    return newX==oldX;
+}
 
 while(true)  //main
 {
@@ -83,9 +96,12 @@ while(true)  //main
     if(input.ToLower()=="q")
         return;
     long x = Convert.ToInt64(input);
-    bool isPalindrom = CheckPalindrom(x);
+    long newX=0;
+    bool isPalindrom = CheckPalindrom1(x, ref newX);
+
     if(isPalindrom)
-        Console.WriteLine($"{x} == {ReverseNum(x)} => {isPalindrom}");
+        Console.WriteLine($"{x} == {newX} => {isPalindrom}");
     else
-        Console.WriteLine($"{x} != {ReverseNum(x)} => {isPalindrom}");
+        Console.WriteLine($"{x} != {newX} => {isPalindrom}");
+
 }
